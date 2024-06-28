@@ -1,0 +1,239 @@
+node -v
+v14.17.3
+
+일반 리액트
+npx create-react-app 프로젝트이름
+
+
+타입스크립트가 포함된 리액트
+npx create-react-app my-app --template typescript
+
+스타일 컴포넌트
+npm i --save-dev @types/styled-components
+
+Router DOM
+npm i react-router-dom@5.3.4
+
+
+
+
+●페이지 전환하는 방법
+ReactJS로 영화 웹 서비스 만들기
+#7.4 Movie App part Two (06:00)
+
+React Router
+<Router> : URL을 보고 있는 컴포넌트
+<Switch> : 한번에 하나의 Route만 렌더링하기 위해서 사용한다.
+<Link> : 브라우저 새로고침 없이 유저를 다른 페이지로 이동시켜주는 컴포넌트
+
+
+●URL을 변수에 넣는 방법
+동적(다이나믹) URL지원, url을 변수에 넣을 수 있다.
+ex) local/12345
+
+useParams() : URL에서 관심 있어하는 정보(path="/:id")를 잡아낼 수 있다.
+리턴 값 : { id : 12345 }
+변수 id를 설정은 Route컴포넌트에서 한다. <Route Path="/:id">
+
+
+
+●기존 배열을 새로운 배열로 만드는 방법
+ReactJS로 영화 웹 서비스 만들기
+#7.1 To Do List part Two (02:40)
+
+ARRAY . map ()
+[].map(함수) : 함수는, array의 모든 item에 대해서 실행된다. 
+[].map( (argument)=> ) : 함수의 첫번째 argument가 진행되고 있는 순서에 맞는 item이된다.
+ex) [].map( (item) => item.toUpperCase() );
+
+
+
+
+●react styled 에서의 셀렉터
+React JS 마스터클래스
+#2.4 Animations and Pseudo Selectors (06:29)
+span {
+	font-size: 36px;
+	&:hover {
+	}
+}
+
+span:hover {
+
+}
+
+둘다 같은 코드이다.
+
+
+●API에서 json불러오기
+ReactJS로 영화 웹 서비스 만들기
+#7.2 Coin Tracker (01:30)
+
+ useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
+
+
+●useEffect(() => {...},[])
+component가 처음으로 시작될 때 한 번만 실행된다.
+
+예외)
+hooks는 최선의 성능을 위해서 hook안에서 사용한 것은 여기[]에 dependency를 넣어야된다고한다.
+[]안에 coinid를 넣어 줌으로써 hooks에서 우리가 coinid라고 불리는 것을 사용하고 있다고 알려주고 있는 것이다.
+만약, coinid가 변한다면 이 코드들이 다시 실행된다.
+coinid는 url에 있기 때문에 변할일이 없다.
+
+
+
+●배열을 지정한 개수 만큼 자르는 방법
+const a = [1,2,3,4,5]
+a.slice(0,2)
+결과 = [1,2]
+
+
+React JS 마스터클래스
+#5.4 Route States (05:40)
+한 화면에서 다른화면으로 정보를 받아 올 수 있다.
+보이지 않는 방식(비하인드더씬) 데이터를 어떻게 보내는지
+
+●새로고침 없이 해당 링크로 이동시키는 방법과 데이터를 담아서 보내는 방법
+link에는 두가지 옵션이있다.
+1. <Link to="/detail">Detail</Link>
+2. <Link to={{
+	pathname: "/courses",
+	search: "?sort=name",
+	hash: "#the-hash",
+	state: { fromDashbord: true }
+}}
+/>
+데이터를 담아서 보내줄 수 있다.
+
+
+
+●숫자의 소수점을 내림하고 올림하는 방법
+Math.floor(1.9) : 내림처리
+1.9 -> 1
+Math.ceil(1.9) : 올림처리
+1.9 -> 2
+
+
+● string type을 소문자로 변환하는 방법
+STRING . toLowerCase()
+
+
+{ state.name } -> {state?.name || "Loading..."}
+state가 존재 하면? name을 가져오고 state가 존재하지 않을 때는 Loading을 보여줘라.
+*typescript는 API에서 오는것은 알기 때문에 알아서 물음표를 넣어주기도한다.
+object가 항상 정의되지 않을 것이란 것을 알기 때문이다.
+
+<span>{priceInfo?.max_supply}</sapn>
+priceInfo가 거기 없거나 undefined이거나 존재하지 않거나 하면 max_supply에 대해 요구하지 않게된다.
+?가 없다면 max_supply를 항상 요구하게되고 만약 priceInfo가 undefined라면 에러가 날 것이고 에러는 undefined 안에 max_supply가 없다고 말하겠지.
+max_supply가 undefined에 없다.
+
+
+
+●한줄 작성방법 (캡슐화)
+async( ) => {
+	두줄 작성방법
+	const response = await fetch(`url`);
+	const json = await response.json();
+
+	한줄 작성방법
+	//const response = await (response).json();
+	const response = await ( await fetch(`url`) ).json();
+}
+
+
+
+일반적으로 이름을 지을 때 interface 이름은 앞에다가 I를 붙인다. ex)ITag
+
+#5.6 Data Types(00:00) 참고
+1. 콘솔에서 마우스 오른쪽 클릭 -> 전역 변수로 저장(Store object as global variable)
+2. Object.keys(temp1);
+3. Object.keys(temp1).join();
+4. 복사 붙여넣기
+5. 콤마(,) 지우기 = ctrl + D
+6. 콤마 삭제 후 엔터
+7. {}안에 데이터를 모두 선택해서 ctrl+shift+L -> : ; 입력 후 콘솔로 넘어가기
+8. Object.values(temp1);
+9. Object.values(temp1).map(v => typeof v).join();
+복사 붙여넣기, 콤마 제거 후 interface {} 안에 데이터들을 모두 선택해서 ctrl+shift+L 후에 커서가 나오면 ;전 으로 커서를 옮긴다음 바로 붙여 넣기
+
+
+#5.7 Nested Routes part One (06:51) 참고
+
+●Nested router (nested route)
+: route안에 있는 또 다른 route다. 웹사이트에서 탭을 사용할 때 많이 도움이된다, 스크린 안에 많은 섹션이 나눠진 곳에서도 마찬가지다.
+
+상단에 네비게이션 바 처럼 만드는 것은 기본적인 react State로 할 수도 있고,
+혹은 URL을 활용해서 할 수도 있다. 하지만 URL로 하는게 더 사용성이 높은데, 사용자가 여기로 바로 접속 할 수도 있기 때문이다.그들이 가고싶은 곳으로 바로 갈 수 있다.
+
+
+●useRouteMatch() : 사용자가 특정한 URL에 있는지의 여부를 알려준다.
+내가 선택한 URL에 들어가 있다면 나는 object를 받는다.
+거기 들어가있지 않다면 null을 받는다.
+
+ex)
+const priceMatch = useRouteMatch("/:coinId/price");
+priceMatch = null or object
+
+
+
+
+#5.9 React Query part One ()
+
+●리액트쿼리 사용방법
+- npm i react-query
+
+- index.tsx
+const queryClient = new QueryClient();
+<QueryClientProvider client={queryClient}> </QueryClientProvider>
+
+index.tsx에서 <ThemeProvider theme={theme}>은 ThemeProvider안에 있는 모든 것이 theme으로 접근 할 수 있다는 것을 의미한다. 같은 맥락이다.
+
+-api.ts
+fetcher함수는 꼭 fetch promise를 return해줘야한다.
+
+export function fetchCoins() {
+	return json data의 Promise
+}
+
+
+
+- App.tsx
+import { ReactQueryDevtools } from "react-query/devtools";
+<ReactQueryDevtools initialIsOpen={true} />
+
+
+
+●useQuery() :
+
+argument
+첫번째.isLoading이라고 불리는 boolean값을 return한다.
+두번째.그 함수의 데이터를 data에 넣어준다.
++세번째. 주기적으로 백그라운드에서 앱을 업데이트할 수 있게 해주는 옵션
+{
+refetchInterval:5000(5초,miliseconds)
+}
+
+
+useQuery("식별할 수 있는 queryKey",fetcher 함수);
+ex) {isLoading, data} = useQuery("allCoins", fetchCoins);
+
+
+
+●react-helmet 컴포넌트 : 여기서 무엇을 render하던 그게 문서의 head로 간다.
+- npm install react-helmet
+import { Helmet } from "react-helmet";
+<Helmet>
+	<title>코인</title>
+</Helmet>
+우리 문서의 head로 가는 direct link여서 title에만 국한되지 않는다.
+css도 넣을 수 있고 원하는걸 넣을 수 있다.
+
