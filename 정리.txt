@@ -251,37 +251,6 @@ interface IRouterProps{
 }
 
 
-●event사용하는방법
-
-const [value, setValue] = useState("");
-const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-	console.log(event.currentTarget.value);
-	//const {} = event; ---> const {currentTarget: {value}} = event;
-	//참고 설명
-	1.
-	> const value = event.currentTarget.value
-	> const {value} = event.currentTarget
-	> const {currentTarget:{value}} = event
-
-	2.
-	```js
-	객체 구조 분해: 객체의 속성 이름에 따라 값을 할당합니다.
-	let person = { name: "John", age: 30 };
-	let { name, age } = person;
-
-	console.log(name); // "John"
-	console.log(age); // 30
-	```
-};
-
-
-<form>
-	<input value={value} onChange={onChange} type="text" />
-</form>
-
-
-
-
 ●global state : 어플리케이션 전체에서 공유되는 state이다.
 
 어플리케이션이 무언가를 인지해야할 때 사용한다, 어플리케이션이 특정 value에 접근해야 할 때 쓴다.
@@ -320,5 +289,73 @@ const setterFn = useSetRecoilState(isDarkAtom);
 첫번째 옵션 : setterFn(true);
 두번째 옵션 : setterFn((prev) => !prev);
 
+●event사용하는방법
 
+
+  const [toDO, setToDO] = useState("");
+
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+	/* 추가 설명
+	const {} = event; ---> const {currentTarget: {value}} = event;
+
+	1.
+	> const value = event.currentTarget.value
+	> const {value} = event.currentTarget
+	> const {currentTarget:{value}} = event
+
+	2.
+	객체 구조 분해: 객체의 속성 이름에 따라 값을 할당합니다.
+	let person = { name: "John", age: 30 };
+	let { name, age } = person;
+
+	console.log(name); // "John"
+	console.log(age); // 30
+	*/
+
+    setToDO(value);
+  };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(toDO);
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input onChange={onChange} value={toDO} type="text" />
+      <button>add</button>
+    </form>
+  );
+
+-------> 지금은 하나의 input 으로 구성되어있기 때문에 onChange함수를 하나 만들었지만
+input이 여러개일 때 문제가 발생한다.
+회원가입폼을 만든다고하면 이름, 주소, 이메일, 등등 input이 많아지면 onChange함수도 여러개 만들어야하고
+useState 변수도 그만큼 만들어야한다.
+해결, react-hook-form
+
+React-hook-form 설치
+> npm install react-hook-form
+
+import { useForm } from "react-hook-form";
+
+사용
+const { register, watch } = useForm(); //useForm함수는 많은 것들을 제공한다.
+console.log(register("toDo")); //register는 상태(state) 객체(name:string,onChange:function,onBlur:function)를 반환해준다.
+console.log(watch()); form의 입력값들의 변화를 관찰 할 수 있게 해주는 함수이다.(form의 모든 값들을 주시 한다.)
+
+return(
+<form>
+	<input {...register("toDo")} /> //register함수가 반환하는 객체를 가져다가 input에 props로 준다.
+	<button>Add</button>
+</form>
+);
+
+input의 안쪽을 클릭 : focus 
+input의 바깥쪽을 클릭 : blur
+input의 안쪽을 클릭하는것 : onClick
+input안에 입력하는 것 : onChange
+input바 바깥을 클릭 : onBlur
 
