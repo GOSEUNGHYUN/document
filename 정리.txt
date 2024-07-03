@@ -420,6 +420,30 @@ formState.errors ---> errors
 const { formState: {errors} } = useForm();
 
 6.8강까지 정리함
+.
+..
+...
+
+6.11
+const value = useRecoilValue(toDoState);
+const modFn = useSetRecoilState(toDoState);
+> 두가지 합쳐진 것이 useRecoilState()이다.
+const [toDos, setToDo] = useRecoilState(toDostate);
+
+setToDo(oldToDos => [...oldToDos]);
+> '...oldToDos'는 배열 안의 요소를 반환한다.
+setToDo(oldToDos => [{ text: toDo, category: "TO_DO"}, ...oldToDos]);
+> text의 toDo는 handleValid가 받는 data:IForm 을 사용했다. data === {toDo}
 
 
-6.11부터 들을차례
+& "..." 추가설명
+const finalPart = [...front, "감", ...back]
+"..."은 front 안에 있는 모든 원소를 풀어놓는다는 의미이다. "..."을 지우면, 배열 안에 배열을 넣게된다.
+"..."을 써주면, 모든 원소를 쓰는 것과 같은 의미이다.
+
+배열 자르기
+const food = ["pizza","mango","kimchi","kimbab"];
+const target = 1;
+food.slice(0,1);
+food.slice(target+1);
+[...food.slice(0, target), "감", ...food.slice(target+1)];
