@@ -1,0 +1,50 @@
+type SuperPrint = {
+    <TypePlaceholder>(arr:TypePlaceholder[]):void
+}
+
+const superPrint:SuperPrint = (arr) => {
+    arr.forEach(i=>console.log(i))
+}
+
+
+제네릭을 받는다고 사용하고싶다고 알려줘야한다.
+>
+type SuperPrint = {
+    <TypePlaceholder>(arr:number[]):void
+}
+
+>
+type SuperPrint = {
+    <TypePlaceholder>(arr:TypePlaceholder[]):void
+}
+
+
+제네릭을 하나 더 추가 하고싶을 때
+type SuperPrint = <T,M>(arr:T[], b:M):T
+
+
+다른방법의 표현 방법
+function superPrint<T>(a: T[]){
+	return a[0]
+}
+
+const a = superPrint<boolean>([1,2,3,4]);
+--> overwrite(덮어쓰기)를 한 것이다. 이것은 타입스크립트에게 명시해주고 있는 것이다 boolean이라고.
+
+
+만약 너가 많은 것들이 있는 큰 타입을 하나 가지고있는데 그중 하나가 달라질 수 있는 타입이라면 거기게 제네릭을 넣으면된다.
+type Player<E> = {
+	name: string
+	extraInfo: E
+}
+
+const player:Player<{favFood:string}> = {
+	name:"nico"
+	extraInfo:{
+		favFood:"김치"
+	}
+}
+
+ex)
+Array<number>
+useState<number>()

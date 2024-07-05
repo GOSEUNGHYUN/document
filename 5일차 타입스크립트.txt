@@ -1,0 +1,60 @@
+
+type Words = {
+	[key:string]:string
+}
+
+
+제한된 양의 property혹은 key를 가지는 타입을 정의하는 방법이다.
+이 object는 제한된 양의 property만을 가질 수 있고 property에 대해서 미리 알진 못하지만 타입만 알고 있을 때 사용하면된다.
+property의 이름은 모르지만, 타입만을 알 때 사용한다.
+
+
+
+class Dict {
+	private words: Words
+	constructor(){
+		this.words = {} //수동으로 초기화해준다.
+	}
+}
+
+
+파라미터
+concrete type
+generic type
+class type : 파라미터가 이 클래스의 인스턴스이기를 원하면 쓸 수 있다.
+ex) add(word:Word) { };
+
+
+강의 예제)
+type Words = {
+    [key: string]: string
+}
+
+class Word {
+    constructor(
+        public term: string,
+        public deff: string
+    ) { }
+}
+
+class Dic {
+    private words: Words
+    constructor() {
+        this.words = {}
+    }
+
+    add(word: Word) {
+        if (this.words[word.term] === undefined)
+            this.words[word.term] = word.deff
+    }
+
+    getWord(term:string){
+        return this.words[term]
+    }
+}
+
+const word = new Word("kimch", "hankook");
+const dic = new Dic();
+
+dic.add(word)
+console.log(dic.getWord("kimch"))
