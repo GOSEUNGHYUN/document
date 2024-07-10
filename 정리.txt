@@ -1,20 +1,17 @@
 node -v
 v14.17.3
 
-일반 리액트
-npx create-react-app 프로젝트이름
-
-
-타입스크립트가 포함된 리액트
+리액트
+npx create-react-app my-app
 npx create-react-app my-app --template typescript
 
 스타일 컴포넌트
+npm install --save styled-components
 npm i --save-dev @types/styled-components
 
 Router DOM
 npm i react-router-dom@5.3.4
-
-
+npm i --save-dev @types/react-router-dom
 
 
 ●페이지 전환하는 방법
@@ -97,6 +94,24 @@ a.slice(0,2)
 
 
 React JS 마스터클래스
+#3.3 Optional Props
+
+-App.tsx
+<Circle borderColor="white" bgColor="teal" />
+
+-Circle.tsx
+interface CircleProps{
+	bgColor : string;
+	borderColor ? : string; //옵션으로 지정, string | undefined
+	text?:string
+}
+
+function Circle({ bgColor, borderColor, text = "default text"}: CircleProps){ //인수에서 default값 주는방법
+return <Container bgColor={bgColor} borderColor ?? bgColor } > //borderColor은 가질 수도 있고 안가질 수도 있기 때문에 초기값을 지정해줘야하는데 지정하는 방법은 ?? 이다. undefined상태라면 bgColor를 보낸다. 
+{ text }</Container>
+}
+
+
 #5.4 Route States (05:40)
 한 화면에서 다른화면으로 정보를 받아 올 수 있다.
 보이지 않는 방식(비하인드더씬) 데이터를 어떻게 보내는지
@@ -291,7 +306,6 @@ const setterFn = useSetRecoilState(isDarkAtom);
 
 ●event사용하는방법
 
-
   const [toDO, setToDO] = useState("");
 
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -375,6 +389,11 @@ return(
 </form>
 );
 
+ex) <li ref={magic.innerRef} {...magic.dragHandleProps}>One</li>
+소스코드에 li를 살펴보면 <li tabindex="0" role="button" aria-describedby="rbd-hidden-text-1-hidden-text-1" data-rbd-drag
+많은 props들을 가지고 있게 된다.
+
+
 input의 안쪽을 클릭 : focus 
 input의 바깥쪽을 클릭 : blur
 input의 안쪽을 클릭하는것 : onClick
@@ -447,3 +466,26 @@ const target = 1;
 food.slice(0,1);
 food.slice(target+1);
 [...food.slice(0, target), "감", ...food.slice(target+1)];
+
+Array<Type>.splice(시작하는위치, 몇개의 item)
+Array<Type>.splice(0 , 1) ---> index 0으로 가서 1개의 item을 지운다. 그리고 return 지운item을 알려준다.
+
+Array<Type>.splice(시작하는위치, 몇개의 item, 넣고싶은 item)
+Array<Type>.splice(2, 0, "a"); index 2에 a를 넣는다. 어떤 것도 지우고싶지 않으니 0
+
+
+
+
+const [minutes, setMinutes] = useRecoilState(minuteState);
+recoilState는 결과로 array를 준다.
+첫번 째 item은 atom의 값이고
+두번 째 요소는 atom을 수정하는 함수이다.
+
+useRecoilState를 atom으로 쓸 수 있고,
+셀렉터로 쓸 수도 있다.
+array의 첫번째item은 atom의 값이거나 selector의 get함수의 값이라는 것을 기억해야한다.
+두번째 요소는 atom을 수정하는 함수이거나 셀렉터의 set property를 실행시키는 함수다.
+
+
+Number(newValue); 숫자로 바꿔준다.# npm
+npm install react-beautiful-dnd --save
