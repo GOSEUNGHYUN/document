@@ -1,0 +1,72 @@
+==================================================
+https://reactjs.org/docs/events.html
+==================================================
+
+
+app.tsx
+--------------------------------------------------
+import { useState } from "react";
+
+function App() {
+  const [value, setValue] = useState("");
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    setValue(value);
+  };
+
+  /* 이 event는 무엇인가요? evnet는 form으로 부터 왔습니다. */
+  /* 어떤 Element가 이 event를 발생시킵니까? HTMLFormElement */
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("hello", value);
+  };
+
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <input
+          value={value}
+          onChange={onChange}
+          type="text"
+          placeholder="username"
+        />
+        <button>Log in</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+추가설명
+--------------------------------------------------
+const { currentTarget: { value } } = event;
+왜 이렇게 되었나요?
+
+순서
+1. const value = event.currentTarget.value
+2. const {value} = event.currentTarget
+3. const {currentTarget:{value}} = event
+
+
+해당하는 개념
+
+객체 구조 분해: 객체의 속성 이름에 따라 값을 할당합니다.
+
+let person = { name: "John", age: 30 };
+let { name, age } = person;
+
+console.log(name); // "John"
+console.log(age); // 30
+
+
+문제점
+지금은 하나의 input 으로 구성되어있기 때문에 onChange함수를 하나 만들었지만 input이 여러개일 때 문제가 발생합니다.
+회원가입폼을 만든다고하면 이름, 주소, 이메일, 등등 input이 많아지면 onChange함수도 여러개 만들어야하고 useState 변수도 그만큼 만들어야합니다.
+
+해결방법
+react-hook-form

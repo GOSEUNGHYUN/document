@@ -1,0 +1,29 @@
+React 프로젝트 생성
+-----------------------------------------------------
+> npx create-react-app my-app
+> npx create-react-app my-app --template typescript
+
+
+패키지 설치
+
+styled_components
+-----------------------------------------------------
+방법1
+> npm install --save styled-components
+> npm i --save-dev @types/styled-components
+
+방법2
+> npm i styled-components@6.0.7
+> npm i @types/styled-components -D
+
+
+Router DOM
+-----------------------------------------------------
+> npm i react-router-dom@5.3.4
+> npm i --save-dev @types/react-router-dom
+
+
+Reacoil
+-----------------------------------------------------
+> npm install recoil
+

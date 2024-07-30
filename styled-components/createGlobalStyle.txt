@@ -1,0 +1,23 @@
+=====================================================
+> npm i styled-reset
+> npm i styled-components@6.0.7
+=====================================================
+
+App.tsx
+-----------------------------------------------------
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
+
+const GlobalStyle = createGlobalStyle`
+${reset};
+`;
+
+function App() {
+  return (
+    <>
+      <GlobalStyle />
+    </>
+  );
+}
+
+export default App;

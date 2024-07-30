@@ -1,0 +1,153 @@
+=====================================================
+ReactJS
+> npm i styled-components@6.0.7
+=====================================================
+
+index.js
+-----------------------------------------------------
+import { ThemeProvider } from "styled-components";
+
+
+/* dark/light mode로 만들려면, property들의 이름이 같아야합니다 */
+const darkTheme = {
+  textColor: "whitesmoke",
+  bgColor: "#111",
+};
+
+const lightTheme = {
+  textColor: "#111",
+  bgColor: "whitesmoke",
+};
+
+...
+<React.StrictMode>
+    <ThemeProvider theme={darkTheme}>
+      <App />
+    </ThemeProvider>
+</React.StrictMode>
+
+
+App.js
+-----------------------------------------------------
+import styled from "styled-components";
+
+const Title = styled.h1`
+	color: ${(props) => props.theme.textColor};
+`;
+
+/* ThemeProvider안에 둘러싸인 모든 component(<App />)는 ThemeProvider에 접근 할 수 있다. */
+
+
+
+
+
+=====================================================
+for TypeScript
+
+https://styled-components.com/docs/api#typescript
+> npm i styled-components@6.0.7
+> npm i @types/styled-components -D
+=====================================================
+
+
+styled.d.ts (src dir)
+-----------------------------------------------------
+import "styled-components";
+
+declare module "styled-components" {
+  export interface DefaultTheme {
+    /* 테마의 모양을 정의합니다 */
+    textColor: string;
+    bgColor: string;
+  }
+}
+
+
+theme.ts
+-----------------------------------------------------
+import { DefaultTheme } from "styled-components";
+
+export const lightTheme: DefaultTheme = {
+  bgColor: "white",
+  textColor: "black",
+};
+
+export const darkTheme: DefaultTheme = {
+  bgColor: "black",
+  textColor: "white",
+};
+
+
+
+index.tsx
+-----------------------------------------------------
+import { ThemeProvider } from "styled-components";
+import { lightTheme } from "./theme";
+
+...
+<React.StrictMode>
+    <ThemeProvider theme={lightTheme}>
+      <App />
+    </ThemeProvider>
+</React.StrictMode>
+
+
+App.tsx
+-----------------------------------------------------
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: ${(props) => props.theme.bgColor};
+`;
+const H1 = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
+
+function App() {
+  return (
+    <Container>
+      <H1>protected</H1>
+    </Container>
+  );
+}
+
+export default App;
+
+
+
+
+components를 생성한 뒤 prop을 보내줄 수 있다.
+prop을 선택적(optional)으로 만들 수 있다.
+prop에 기본값(default)을 줄 수 있다.
+----------------------------------------------------
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: ${(props) => props.theme.bgColor};
+`;
+const H1 = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
+
+interface DummyProps {
+  text: string; /* required(필수) */
+  otherThingHere?: boolean; /* optional(선택) */
+  active: boolean;
+}
+
+/* active prop을 보내지 않는다면 기본값을 가지게 됩니다. */
+function Dummy({ text, otherThingHere, active = false /* default(기본) */ }: DummyProps) {
+  return <H1>{text}</H1>;
+}
+
+function App() {
+  return (
+    <Container>
+      /* 우리는 두번째 prop(otherThingHere)을 전해주지 않았습니다 */
+      <Dummy text="dummy" />
+      /* <Dummy active /> === <Dummy active = {true} /> */
+    </Container>
+  );
+}
+
+export default App;

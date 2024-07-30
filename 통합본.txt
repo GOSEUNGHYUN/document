@@ -304,53 +304,9 @@ const setterFn = useSetRecoilState(isDarkAtom);
 첫번째 옵션 : setterFn(true);
 두번째 옵션 : setterFn((prev) => !prev);
 
-●event사용하는방법
 
-  const [toDO, setToDO] = useState("");
 
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-	/* 추가 설명
-	const {} = event; ---> const {currentTarget: {value}} = event;
-
-	1.
-	> const value = event.currentTarget.value
-	> const {value} = event.currentTarget
-	> const {currentTarget:{value}} = event
-
-	2.
-	객체 구조 분해: 객체의 속성 이름에 따라 값을 할당합니다.
-	let person = { name: "John", age: 30 };
-	let { name, age } = person;
-
-	console.log(name); // "John"
-	console.log(age); // 30
-	*/
-
-    setToDO(value);
-  };
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(toDO);
-  };
-
-  return (
-    <form onSubmit={onSubmit}>
-      <input onChange={onChange} value={toDO} type="text" />
-      <button>add</button>
-    </form>
-  );
-
--------> 지금은 하나의 input 으로 구성되어있기 때문에 onChange함수를 하나 만들었지만
-input이 여러개일 때 문제가 발생한다.
-회원가입폼을 만든다고하면 이름, 주소, 이메일, 등등 input이 많아지면 onChange함수도 여러개 만들어야하고
-useState 변수도 그만큼 만들어야한다.
-해결, react-hook-form
-
-React-hook-form 설치
+●React-hook-form 설치
 > npm install react-hook-form
 
 import { useForm } from "react-hook-form";

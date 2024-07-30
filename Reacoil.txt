@@ -1,0 +1,27 @@
+==========================================================
+> npm install recoil
+==========================================================
+
+
+index.tsx
+----------------------------------------------------------
+<RecoilRoot>
+	<App />
+</RecoilRoot>
+
+
+atoms.ts
+----------------------------------------------------------
+import { atom } from "recoil";
+
+export const isDarkAtom = atom({
+	key: "isDark",
+	default: true
+});
+
+
+useRecoilValue(atoms) : atom의 값을 반환합니다
+useSetRecoilState(atoms) : atom을 변경하는 함수를 반환합니다.
+
+/* 컴포넌트가 atom의 값을 관찰하기 시작할 때, atom이 변경되면 컴포넌트도 변경된 값으로 다시 리렌더링 된다. */
+
