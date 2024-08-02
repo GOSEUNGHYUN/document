@@ -25,3 +25,12 @@ useSetRecoilState(atoms) : atom을 변경하는 함수를 반환합니다.
 
 /* 컴포넌트가 atom의 값을 관찰하기 시작할 때, atom이 변경되면 컴포넌트도 변경된 값으로 다시 리렌더링 된다. */
 
+
+
+useRecoilState = useRecoilValue + useSetRecoilState
+----------------------------------------------------------
+const [ value, setValue ] = useState()
+
+/* 일반적인 React JS의 useState를 쓰는 것과 같습니다 */
+const [ value, modFn ] = useRecoilState(atoms)
+

@@ -1,0 +1,58 @@
+============================================================
+react-hook-form
+Custom Validation
+============================================================
+/* 특정한 에러를 발생시키게 해줍니다 */
+const onValid = (data: IForm) => {
+  /* 특정한 항목에 해당되는 에러 */
+  if (data.password !== data.password1) {
+    setError(
+      "password1",
+      { message: "Password are not the same" },
+      /* 특정한 에러가 있다면 form의 커서가 password1으로 옮겨집니다 */
+      { shouldFocus: true }
+    );
+  }
+  /* form 전체에 해당되는 에러 */
+  setError("extraError", { message: "server offline." });
+};
+
+
+
+/* 물음표를 붙이면 그 항목이 udefined면 그 뒤를 실행하지 않습니다 */
+<span>{errors?.extraError?.message}</span>
+
+
+
+원하는 규칙으로 검사하기
+------------------------------------------------------------
+<input
+  {...register("firstName", {
+    required: true,
+    validate: (value) => !value.includes("nico") ? "no nicos allowed" : true,
+  })}
+  placeholder="First Name"
+/>
+
+두 가지를 검사하기
+------------------------------------------------------------
+<input
+  {...register("firstName", {
+    required: true,
+    validate: {
+      noNico: (value) => !value.includes("nico"),
+      noNick: (value) => !value.includes("nico"),
+    },
+  })}
+  placeholder="First Name"
+/>
+
+
+입력값이 submit이 되고, 값이 검사를 통과하면 다시 input을 비우고싶다면
+------------------------------------------------------------
+const { setValue } = useForm<IForm>();
+const handleValid = (data: IForm) => {
+  console.log("add to do", data.toDo);
+  setValue("toDo","");
+};
+

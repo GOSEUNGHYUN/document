@@ -1,0 +1,59 @@
+============================================================
+react-hook-form
+validation
+
+onSubmit -> handleSubmit
+============================================================
+/* handleSubmit은 validation을 담당합니다. */
+const { handleSubmit } = useForm();
+
+/* 데이터가 유효하지 않다면, useForm이 에러를 보여줍니다 */
+/* react-hook-form이 모든 validation을 마쳤을 때 호출합니다 */
+const onValid = (data:any) => {
+   console.log(data);
+};
+
+<form onSubmit = { handleSubmit(onValid) }>
+</form>
+
+
+handleSubmit(first_argu,second_argu)
+-------------------------------------------------------------
+first_argu(onValid): 데이터가 유효할 때 호출 되는 함수
+second_argu(onInvalid)?: 데이터가 유효하지 않을 때 호출 되는 함수
+
+
+
+ToDoList.tsx
+-------------------------------------------------------------
+import { useForm } from "react-hook-form";
+
+function ToDoList() {
+  const { register, handleSubmit } = useForm();
+  const onValid = (data: any) => {
+    console.log(data);
+  };
+
+  return (
+    <div>
+      /* 먼저 handleSubmit을 호출()합니다. 그러고나서 실제로 유저가 submit을 하면 */
+      /* handleSubmit은 해야하는 모든 validation이나, 다른 일들을 전부 끝마친 후에 */
+      /* 데이터가 유효할 때만 우리의 함수를 호출합니다. */
+      <form onSubmit={handleSubmit(onValid)}>
+        <input {...register("email")} placeholder="Email" />
+        <input {...register("firstName")} placeholder="First Name" />
+        <input {...register("lastName")} placeholder="Last Name" />
+        <input {...register("username")} placeholder="Username" />
+        <input {...register("password")} placeholder="Password" />
+        <input {...register("password1")} placeholder="Password1" />
+        <button>Add</button>
+      </form>
+    </div>
+  );
+}
+
+export default ToDoList;
+
+타입스크립트에게 form의 모양을 알려주는 방법
+-------------------------------------------------------------
+

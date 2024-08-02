@@ -1,0 +1,118 @@
+============================================================
+ReactHookForm
+> npm install react-hook-form
+============================================================
+
+
+사용하면 좋은 경우
+------------------------------------------------------------
+큰 form을 가지고 있을 때,
+검증(form validation)이 많은 경우 사용하면 좋습니다.
+
+
+개념
+------------------------------------------------------------
+const { register, watch } = useForm();
+
+/* input에 있으면 좋은 것들을 반환해줍니다 */
+register("toDo");
+반환값 : { name: "toDo", onChange: f, onBlur: f, ref: f }
+
+/* form의 모든 값을 주시하며 form의 입력값들의 변화를 관찰 할 수 있게 해줍니다 */
+watch();
+반환값 : { key(toDo) : value(입력값) }
+
+focus: input 안쪽을 클릭한 상태 
+blur: input 바깥쪽을 클릭한 상태
+
+onClick: input 안쪽을 클릭하는 이벤트
+onChange: input 안에 입력하는 이벤트
+onBlur: input 바깥을 클릭하는 이벤트
+
+
+
+사용법
+------------------------------------------------------------
+/* register function이 반환하는 객체를 가져다가 input에 props로 줘야합니다 */
+<input {...register("toDo")} />
+/* react-hook-form이 알 수 있도록, input의 이름을 주는 것입니다. toDo */
+
+/* 풀어서 쓰면 다음과 같습니다 */
+<input 
+  name="toDo" 
+  ref={register} 
+  onChange={event => {
+    // onChange 핸들러 구현
+  }} 
+  onBlur={event => {
+    // onBlur 핸들러 구현
+  }} 
+/>
+
+
+ToDoList.tsx
+------------------------------------------------------------
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+
+function ToDoList() {
+  const { register, watch } = useForm();
+  console.log(watch());
+  return (
+    <div>
+      <form>
+        <input {...register("email")} placeholder="Email" />
+        <input {...register("firstName")} placeholder="First Name" />
+        <input {...register("lastName")} placeholder="Last Name" />
+        <input {...register("username")} placeholder="Username" />
+        <input {...register("password")} placeholder="Password" />
+        <input {...register("password1")} placeholder="Password1" />
+        <button>Add</button>
+      </form>
+    </div>
+  );
+
+
+
+
+ToDoList.tsx ( react-hook-form을 사용하지 않았을 경우 )
+------------------------------------------------------------
+import { useState } from "react";
+
+function ToDoList() {
+  /* form이 커질 수록 많은 state, event handler, validation 이 필요합니다 */
+  const [toDo, setToDo] = useState("");
+  const [toDoError, setToDoError] = useState("");
+
+  /* event handdler */
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    setToDoError("");
+    setToDo(value);
+  };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    /* validation */
+    if (toDo.length < 10) {
+      setToDoError("To do should be longer");
+    }
+    console.log("submit");
+  };
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <input onChange={onChange} value={toDo} placeholder="Write a to do" />
+        <button>Add</button>
+        {toDoError !== "" ? toDoError : null}
+      </form>
+    </div>
+  );
+}
+
+export default ToDoList;
+
+
+

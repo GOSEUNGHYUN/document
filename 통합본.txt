@@ -313,48 +313,12 @@ import { useForm } from "react-hook-form";
 
 사용
 const { register, watch, handleSubmit, formState } = useForm(); //useForm함수는 많은 것들을 제공한다.
-console.log(register("toDo")); //register는 상태(state) 객체(name:string,onChange:function,onBlur:function)를 반환해준다.
-console.log(watch()); form의 입력값들의 변화를 관찰 할 수 있게 해주는 함수이다.(form의 모든 값들을 주시 한다.)
-/*
-handleSubmit이 바로 validation(유효성 검사)을 담당하게된다. 이벤트를 preventDefault하는 것도 해준다.
-유효성 검사 : 사용자가 입력한 데이터를 검증하는 것.
-사용방법 : const onValid = (data: any) => {
-	console.log(data);
-};
 
-> data = {
-> 	email:"",
->	firstName:"",
->	lastName:"",
->	.
->	..
-> }
-
-<div>
-	<form onSubmit={handleSubmit(onValid)}></form>
-	//handleSubmit(첫번째인수,두번째인수)
-	//첫번째인수 : 데이터가 유효할 때 호출되는 함수
-	//두번째인수 : 데이터가 유효하지 않을 때 호출되는 함수(필수는 아님)
-</div>
-*/
-
-return(
-<form>
-	<input {...register("toDo")} /> //register함수가 반환하는 객체를 가져다가 input에 props로 준다.
-	<button>Add</button>
-</form>
-);
 
 ex) <li ref={magic.innerRef} {...magic.dragHandleProps}>One</li>
 소스코드에 li를 살펴보면 <li tabindex="0" role="button" aria-describedby="rbd-hidden-text-1-hidden-text-1" data-rbd-drag
 많은 props들을 가지고 있게 된다.
 
-
-input의 안쪽을 클릭 : focus 
-input의 바깥쪽을 클릭 : blur
-input의 안쪽을 클릭하는것 : onClick
-input안에 입력하는 것 : onChange
-input바 바깥을 클릭 : onBlur
 
 <input {register("", {required: true, minLength: 10})} />
 <input {register("", {required: "Password is required", minLength: 10})} />
@@ -363,32 +327,6 @@ input바 바깥을 클릭 : onBlur
 console.log(formState.errors); 에러가 날경우 콘솔에 보여준다.
 
 또 다른 validation방법
-정규식 사용(RegExp) : 
-<input {register("", {required: true, pattern:/^[A-Za-z0-9._%+-]+@naver.com$/})} />
-
-똑같이 두개의 옵션이 있다.
-pathname: 바로 값을 보내는 것
-pathname:{
-	value:/^[A-Za-z0-9._%+-]+@naver.com$/,
-	message:"Only naver.com emails allowed",
-}
-
-기본 값 설정가능
-interface IForm {
-	email: string;
-	firstName: string;
-	lastName: string;
-	username: string;
-	password: string;
-	password1: string;
-	extraError?: string;
-}
-
-const { formState: { errors }, } = useForm<IFom>({
-	defaultValues: {
-		email: "@naver.com",
-	}
-})
 
 객체 구조 분해
 formState.errors ---> errors

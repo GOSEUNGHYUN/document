@@ -1,0 +1,37 @@
+============================================================
+react-hook-form
+invalidation
+============================================================
+
+
+HTML를 이용한 유효성검사
+------------------------------------------------------------
+<input {...register("email")} required placeholder="Email" />
+
+
+JavaScript를 이용한 유효성검사
+------------------------------------------------------------
+<input {...register("email", { required: true, minLength: 5 })} placeholder="Email" />
+
+
+에러를 보여주는 방법
+에러가 있는지 없는지를 알려주고 어떤 종류의 에러가 생겼는지도 알려줍니다.
+-------------------------------------------------------------
+const { formState } = useForm();
+
+console.log(formState.errors);
+
+
+에러메세지를 추가하는 방법
+-------------------------------------------------------------
+<input
+  {...register("email", {
+    required: "Email is required",
+    minLength: {
+      value: 5,
+      message: "Your email is too short",
+    },
+  })}
+  placeholder="Email"
+/>
+

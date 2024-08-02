@@ -1,0 +1,58 @@
+============================================================
+react-hook-form
+RegularExpression
+https://regex101.com/
+============================================================
+
+
+RegExp 정규식 사용법
+정규식을 바탕으로 패턴 검사를 할 수 있습니다
+------------------------------------------------------------ 
+const { register, handleSubmit, formState } = useForm();
+
+<form onSubmit={handleSubmit(onValid)>
+  <input
+    {...register("email", {
+      required: true,
+      pattern: /^[A-Za-z0-9._%+-]+@naver.com$/,
+    })}
+    placeholder="Email"
+  />
+</form>
+
+에러메세지를 추가하는 방법
+------------------------------------------------------------
+pattern: {
+	value:/^[A-Za-z0-9._%+-]+@naver.com$/,
+	message:"Only naver.com emails allowed",
+}
+
+
+에러메세지를 사용하는 방법
+------------------------------------------------------------
+/* formState.errors -> formState:{errors} */
+const { register, formState:{errors} } = useForm();
+
+<span>{errors?.email?.message}</span>
+<span>{errors?.firstName?.message}</span>
+
+
+
+How to describe shapes to TypeScript
+------------------------------------------------------------
+interface IForm {
+	email: string;
+	firstName: string;
+	lastName: string;
+	username: string;
+	password: string;
+	password1: string;
+	extraError?: string;
+}
+
+const { formState: { errors }, } = useForm<IFom>({
+	/* 기본 값을 지정할 수 있습니다 */
+	defaultValues: {
+		email: "@naver.com",
+	}
+})
