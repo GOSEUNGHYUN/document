@@ -1,0 +1,10 @@
+filter()
+-------------------------------------------------------
+조건을 만족하는 원소들만 담은 배열을 리턴합니다.
+
+const words = ['spray', 'elite', 'exuberant', 'destruction', 'present'];
+
+const result = words.filter((word) => word.length > 6);
+
+console.log(result);
+// Expected output: Array ["exuberant", "destruction", "present"]

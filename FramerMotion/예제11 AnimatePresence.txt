@@ -1,0 +1,58 @@
+AnimatePresence는 안쪽에 나타나거나 사라지는게 있다면 그것을 animate할 수 있도록 해줍니다.
+
+규칙1. visible상태여야 합니다.
+규칙2. AnimatePresence의 내부에는 condition(조건문)이 있어야합니다.
+
+예시) <AnimatePresence>{showing ? <Box /> : null}</AnimatePresence>
+----------------------------------------------------------
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+
+const Wrap = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Box = styled(motion.div)`
+  width: 100px;
+  height: 100px;
+  border-radius: 40px;
+  top: 200px;
+  position: absolute;
+
+  background-color: white;
+`;
+
+function Appp() {
+  const [showing, setShowing] = useState(false);
+  const toggleShowing = () => setShowing((prev) => !prev);
+  const boxVariants = {
+    initial: { opacity: 0, scale: 0 },
+    animate: { opacity: 1, scale: 1, rotateZ: 360 },
+    leaving: { opacity: 0, scale: 0, y: 50 },
+  };
+
+  return (
+    <Wrap>
+      <button onClick={toggleShowing}>Click</button>
+      <AnimatePresence>
+        {showing ? (
+          <Box
+            variants={boxVariants}
+            initial="initial"
+            animate="animate"
+            exit="leaving" //element가 사라질 때 발생되는 animation을 정합니다.
+            transition={{ type: "tween" }}
+          />
+        ) : null}
+      </AnimatePresence>
+    </Wrap>
+  );
+}
+
+export default Appp;

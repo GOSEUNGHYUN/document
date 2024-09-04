@@ -1,0 +1,13 @@
+react-memo는 prop이 바뀌지 않는다면 컴포넌트를 렌더링하지 않습니다
+
+React.memo()
+
+
+예시
+-----------------------------------------------------------
+function DragabbleCard({ toDo, index }: IDragabbleCardProps){
+
+  return
+}
+
+export default React.memo(DragabbleCard);

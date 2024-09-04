@@ -1,0 +1,63 @@
+========================================================
+reactQuery
+
+> npm i react-query
+========================================================
+
+
+index.tsx
+--------------------------------------------------------
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
+
+ReactDOM.render(
+  <React.StricMode>
+    <QueryClientProvider>
+      <App />
+    </QueryClientProvider client={queryClient}>
+  </React.StricMode>,
+  document.getElementById("root")
+);
+
+api.ts
+--------------------------------------------------------
+export async function fetchCoins() {
+  const BASE_URL = 'url'
+
+  const response = await fetch(`${BASE_URL}/coins`);
+  const json = await response.json();
+  return json;
+}
+
+await와 async를 사용하는 대신에 promise를 사용하는 방법
+export function fetchCoins() {
+  return fetch("url").then(response => response.json());
+}
+
+
+Coins.tsx
+--------------------------------------------------------
+import { useQuery } from "react-query";
+//useQuery("식별할 수 있는 queryKey",fetcher function);
+
+interface ICoin {
+  id: string;
+  name: string;
+  symbol: string;
+  rank: number;
+  is_new: boolean;
+  is_active: boolean;
+  type: string;
+}
+
+function Coins() {
+  const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+
+  /* queryKey를 고유한 Id로 만들고 변수 이름의 중복을 피하는 방법
+  const { isLoading: infoLoading, data: infoData } = useQuery("["info", coinId]", () => fetchCoinInfo(coinId));
+  const { isLoading: tickersLoading, data: tickersData } = useQuery("["tickers", coinId]", () => fetchCoinTicker(coinId));
+  */
+
+}

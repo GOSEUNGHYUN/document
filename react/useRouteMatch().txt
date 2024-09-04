@@ -1,0 +1,12 @@
+특정한 URL에 있는지의 여부를 알려줍니다.
+
+
+import { useRouteMatch } from "react-router-dom";
+
+function Coin(){
+  const priceMatch = useRouteMatch("URL");
+  console.log(priceMatch);
+}
+
+선택한 URL에 들어가있다면 object를 받습니다.
+들어가있지 않다면 null을 받습니다.

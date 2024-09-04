@@ -1,0 +1,31 @@
+const x = ["a", "b", "c", "d", "e", "f"]
+f(start, ?deleteCount, ...items)
+
+index 0으로 가서 1개의 item을 삭제합니다
+x.splice(0,1)
+
+▶ ['b', 'c', 'd', 'e', 'f']
+
+
+index 2에 "a"를 추가합니다
+x.splice(2, 0, "a")
+
+▶ ['b', 'c', 'a', 'd', 'e', 'f']
+
+
+< mutation >
+splice는 한 자리에서 array를 수정하고 변형시킵니다.
+array에서 splice를 사용하면 그 array를 수정한다는 의미입니다.
+
+mutation은 react나 State에서 원하는 것이 아닙니다.
+State를 변형시키지 않고 항상 새로운 State를 return해야 합니다
+
+< non-mutation >
+
+> const name = "nico"
+> name.toUpperCase()
+< 'NICO"
+
+name은 변하지 않았습니다
+> name
+< 'nico'

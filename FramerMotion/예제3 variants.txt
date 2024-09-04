@@ -1,0 +1,63 @@
+App.tsx
+------------------------------------------------------
+import styled from "styled-components";
+import { motion } from "framer-motion";
+
+const Wrapper = styled.div`...`;
+
+const Box = styled(motion.div)`...`;
+
+const Circle = styled(motion.div)`...`;
+
+const boxVariants = {
+  start: {
+    opacity: 0,
+    scale: 0.5,
+  },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.5,
+      delayChildren: 0.5, //부모 variants 내에서, 모든 자식들에 delay를 할 수 있습니다.
+      staggerChildren: 0.5, //stagger:시차를 두다
+    },
+  },
+};
+
+/* 참고 */
+const circleVariants = {
+  start: { opacity: 0, y: 10 }, //y는 Motion에서만 특정됩니다 CSS X
+  end: { opacity: 1, y: 0 },
+};
+
+function App() {
+  return (
+    <Wrapper>
+      <Box variants={boxVariants} initial="start" animate="end">
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+      </Box>
+    </Wrapper>
+  );
+}
+
+export default App;
+
+
+
+참고
+------------------------------------------------------
+부모 컴포넌트 <Box> 가 variants랑 initial의 variant 이름, animate의 variant 이름을 갖고 있을 때
+-> <Box variants={boxVariants} initial="start" animate="end">
+
+기본 동작으로, Motion은 initial="start" animate="end"를 복사해서 자동으로 자식들에게 붙여넣어 줍니다.
+->
+<Box variants={boxVariants} initial="start" animate="end">
+        <Circle initial="start" animate="end" />
+        <Circle initial="start" animate="end" />
+</Box>

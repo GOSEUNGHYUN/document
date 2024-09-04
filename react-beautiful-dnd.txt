@@ -1,0 +1,61 @@
++=====================================================+
+react-beautiful-dnd
+
+> npm i react-beautiful-dnd
+> npm i --save-dev @types/react-beautiful-dnd
+
+https://www.npmjs.com/package/react-beautiful-dnd
++=====================================================+
+children은 요소들 중 하나입니다
+<DragDropContext onDragEnd={onDragEnd}>
+  <span>hello</span> //<--children
+</DragDropContext>;
+
+
+
+기본세팅
+------------------------------------------------------
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+function App() {
+  const onDragEnd = () => {};
+
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="one">
+        {() => (
+          <ul>
+            <Draggable draggableId="first" index={0}>
+              {() => <li>One</li>}
+            </Draggable>
+            <Draggable draggableId="second" index={1}>
+              {() => <li>Two</li>}
+            </Draggable>
+          </ul>
+        )}
+      </Droppable>
+    </DragDropContext>
+  );
+}
+
+export default App;
+
+
+tip
+-----------------------------------------------------
+interface IToDoState {
+  [key: string]: string[];
+}
+
+export const toDoState = atom<IToDoState>({
+  key: "toDo",
+  default: {
+    to_do: []
+    doing: []
+    done: []
+    lalalala: [] //만약 나중에 더 추가를 한다면 에러가 날것이다. 해결방법은 interface에서 확인합니다
+  }
+});
+
+이렇게 하지 않으면, 타입스크립트는 주어진 이것들만 유일한 선택지(to_do,doing,done)라고 생각합니다 나중에 우리가 user에게 board를 만들 선택권을 줄 가능성이 있다면 
+우리의 toDoState가 단지 key이고 그것은 string이고 string으로 이루어진 array를 가질 것이라고 말해준것입니다.

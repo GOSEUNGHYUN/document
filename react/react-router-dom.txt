@@ -1,0 +1,58 @@
+-----------------------------------------------------
+> npm i react-router-dom@5.3.4
+> npm i --save-dev @types/react-router-dom
+-----------------------------------------------------
+
+기본사용법
+App.tsx
+-----------------------------------------------------
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+/*
+1. BrowserRouter: localhost:3000/movie
+2. HashRouter: localhost:3000/#/movie
+*/
+
+function App() {
+  return (
+    <Router> Router를 먼저 렌더링해주고 유저가 있는 url에 따라서 보여줍니다.
+      <Switch> Route를 찾는역할을 하고, Route는 URL을 의미합니다. Route를 찾으면 컴포넌트를 렌더링합니다. 한번에 하나의 Route만 렌더링하기 위해서 Switch를 사용합니다.
+
+        <Route path="/movie">
+          <Detail />
+        </Route>
+
+        <Route path="/"> 유저가 이 경로에 있으면 Home 컴포넌트를 보여줍니다.
+          <Home />
+        </Route>
+
+      </Switch>
+    </Router>
+  );
+}
+
+export default App;
+
+
+한 Route에서 다른 Route로 이동하는 방법
+Movie.tsx
+-----------------------------------------------------
+
+1. a태그를 사용해서 만든다면 작동은하지만 페이지 전체가 다시 실행됩니다.
+<a href="/movie">go</a>
+
+2. Link 컴포넌트를 사용합니다.
+브라우저의 새로고침 없이 유저를 다른페이지로 이동시켜줍니다.
+
+import { Link } from "react-router-dom";
+
+function Movie(){
+  return (
+    <h2>
+      <Link to="/movie">go</Link>
+    </h2>
+  );
+}
+
+

@@ -1,0 +1,22 @@
+const toDos = {
+  x: ["a","b"],
+  y: ["n","t"]
+}
+
+object가 가진 key값들만 array로 뽑아줍니다
+Object.keys(toDos)
+▶ ['x','z']
+
+
+object가 가진 value들만 array로 뽑아줍니다
+Object.values(toDos)
+▶ [Array(2), Array(2)]
+
+
+활용
+-------------------------------------------------
+toDos['x']
+▶ ['a', 'b']
+
+Object.keys(toDos).map(boardId => toDos[boardId])
+▶ [Array(2), Array(2)]

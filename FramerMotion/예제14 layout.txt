@@ -1,0 +1,49 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+
+const Wraper = styled(motion.div)`
+  height: 100vh;
+  width: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const Box = styled(motion.div)`
+  height: 200px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+`;
+
+const Circle = styled(motion.div)`
+  height: 50px;
+  width: 50px;
+  background-color: cornflowerblue;
+  border-radius: 50px;
+`;
+
+function Appp() {
+  const [clicked, setClicked] = useState(false);
+
+  const handleClicked = () => setClicked((prev) => !prev);
+
+  return (
+    <Wraper onClick={handleClicked}>
+      <Box
+        style={{
+          justifyContent: clicked ? "flex-start" : "center",
+          alignItems: clicked ? "flex-start" : "center",
+        }}
+      >
+        <Circle layout />
+        {/* css가 바뀔 때 움직이는 element에다가 layout을 주면 animation이 추가됩니다 */}
+      </Box>
+    </Wraper>
+  );
+}
+
+export default Appp;

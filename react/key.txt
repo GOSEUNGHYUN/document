@@ -1,0 +1,56 @@
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+
+const Wrap = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const Box = styled(motion.div)`
+  width: 400px;
+  height: 200px;
+  top: 100px;
+  background-color: rgb(255, 255, 255, 1);
+  border-radius: 40px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+`;
+
+function Appp() {
+  const [visible, setVisible] = useState(1);
+  const next = () => setVisible((prev) => (prev === 10 ? 10 : prev + 1));
+  return (
+    <Wrap>
+      <AnimatePresence>
+        <Box
+          initial={{ x: 500, opacity: 0, scale: 0 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          exit={{ x: -500, opacity: 0, scale: 0 }}
+          key={visible}
+          /* react js는 key를 보고 각 Box가 고유하다고 생각합니다.
+          각 element는 key를 가져야합니다. key는 고유해야만합니다.
+          key를 바꾸면 react js는 이전 element가 사라지고 새 element가 생겼다고 생각합니다.
+          array를 제거하고 key를 이용 할 수 있습니다.
+          key를 바꾸면 React js는 component를 re-render해줍니다.
+          새 component가 생겼다고 생각합니다.
+          이전 것을 없애버리고 새로운 것을 보여줍니다.
+          */
+        >
+          {visible}
+        </Box>
+      </AnimatePresence>
+      <button onClick={next}>next</button>
+    </Wrap>
+  );
+}
+
+export default Appp;
